@@ -1,3 +1,4 @@
+import Button from "../../../components/ui/Button";
 function Hero() {
   return (
     <section className="bg-slate-50">
@@ -12,13 +13,11 @@ function Hero() {
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <button className="rounded-lg bg-blue-600 px-6 py-3 text-white transition hover:bg-blue-700">
-            Browse Books
-          </button>
+        <Button>Browse Books</Button>
 
-          <button className="rounded-lg border border-blue-600 px-6 py-3 text-blue-600 transition hover:bg-blue-50">
+        <Button variant="secondary">
             Get Started
-          </button>
+        </Button>
         </div>
       </div>
     </section>
