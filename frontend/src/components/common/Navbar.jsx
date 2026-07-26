@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import { ROUTES } from "../../constants/routes";
 
 function Navbar() {
   return (
@@ -12,7 +13,7 @@ function Navbar() {
 
           <Link to="/">Home</Link>
 
-          <Link to="/books">Books</Link>
+          <Link to={ROUTES.BOOKS}>Books</Link>
 
           <Link to="/about">About</Link>
 
