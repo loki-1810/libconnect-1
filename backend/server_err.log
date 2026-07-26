@@ -5,3 +5,8 @@ INFO:     Started server process [30364]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 WARNING:  WatchFiles detected changes in 'app\api\routes\borrows.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [30364]
+WARNING:  WatchFiles detected changes in 'app\schemas\borrow.py'. Reloading...
