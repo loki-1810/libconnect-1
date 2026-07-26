@@ -1,0 +1,47 @@
+{
+  "info": {
+    "name": "LibConnect API",
+    "description": "Core requests for the LibConnect FastAPI service.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000/api/v1" },
+    { "key": "token", "value": "" },
+    { "key": "bookId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"student@libconnect.local\",\n  \"password\": \"LibConnect123!\"\n}" },
+            "url": "{{baseUrl}}/auth/login"
+          }
+        },
+        {
+          "name": "Current user",
+          "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/auth/me" }
+        }
+      ]
+    },
+    {
+      "name": "Catalogue",
+      "item": [
+        { "name": "Search books", "request": { "method": "GET", "url": "{{baseUrl}}/books?q=clean&page=1&page_size=12" } },
+        { "name": "Book filters", "request": { "method": "GET", "url": "{{baseUrl}}/books/filters" } }
+      ]
+    },
+    {
+      "name": "Student circulation",
+      "item": [
+        { "name": "Request borrow", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{ \"book_id\": \"{{bookId}}\" }" }, "url": "{{baseUrl}}/borrows" } },
+        { "name": "My borrows", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/borrows/mine" } },
+        { "name": "My reservations", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/reservations/mine" } }
+      ]
+    }
+  ]
+}

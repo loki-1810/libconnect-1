@@ -1,5 +1,5 @@
-function About() {
-  return <h1 className="p-10 text-4xl">About</h1>;
-}
+import { FiBookOpen, FiUsers, FiShield } from "react-icons/fi";
 
+const values = [[FiBookOpen, "Access that feels simple", "A clean catalogue, clear availability, and frictionless requests make finding books a pleasure."], [FiUsers, "Built for every role", "Students, librarians, and administrators each get a focused workspace with the controls they need."], [FiShield, "Designed responsibly", "Role-based access, secure sessions, validation, and transparent borrowing rules support reliable library operations."]];
+function About() { return <><section className="bg-slate-950 px-6 py-20 text-white"><div className="mx-auto max-w-5xl text-center"><p className="text-sm font-bold uppercase tracking-widest text-blue-400">About LibConnect</p><h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">A more connected library experience</h1><p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">LibConnect brings library collections, circulation, and communities together in one cloud-based platform that is simple to use and easy to manage.</p></div></section><section className="mx-auto max-w-6xl px-6 py-16"><div className="grid gap-6 md:grid-cols-3">{values.map(([Icon, title, description]) => <article key={title} className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"><Icon className="text-3xl text-blue-600" /><h2 className="mt-5 text-xl font-bold">{title}</h2><p className="mt-3 leading-7 text-slate-600">{description}</p></article>)}</div></section></>; }
 export default About;

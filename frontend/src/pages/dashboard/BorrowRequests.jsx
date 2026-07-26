@@ -1,0 +1,17 @@
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Button from "../../components/ui/Button";
+import EmptyState from "../../components/common/EmptyState";
+import { circulationService } from "../../services/circulationService";
+import { apiError } from "../../services/api";
+
+function BorrowRequests() {
+  const [items, setItems] = useState([]); const [status, setStatus] = useState("requested"); const [loading, setLoading] = useState(true);
+  function load() { setLoading(true); circulationService.libraryBorrows({ status, page_size: 50 }).then((data) => setItems(data.items)).catch((error) => toast.error(apiError(error))).finally(() => setLoading(false)); }
+  useEffect(load, [status]);
+  async function decide(id, decision) { const note = window.prompt(`Optional note for ${decision}:`) || undefined; try { await (decision === "approve" ? circulationService.approve(id, note) : circulationService.reject(id, note)); toast.success(`Request ${decision}d`); load(); } catch (error) { toast.error(apiError(error)); } }
+  async function returnBook(id) { try { await circulationService.returnBook(id); toast.success("Book returned"); load(); } catch (error) { toast.error(apiError(error)); } }
+  return <section><div className="flex flex-wrap items-end justify-between gap-4"><div><h2 className="text-2xl font-bold">Borrow requests</h2><p className="mt-1 text-slate-600">Approve requests, issue books, and receive returns.</p></div><select value={status} onChange={(event) => setStatus(event.target.value)} className="rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm"><option value="requested">Pending requests</option><option value="borrowed">Issued books</option><option value="overdue">Overdue books</option><option value="returned">Returned history</option><option value="rejected">Rejected history</option></select></div><div className="mt-7 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100">{loading ? <div className="p-8 text-slate-500">Loading requests…</div> : items.length ? <div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left text-sm"><thead className="bg-slate-50 text-slate-500"><tr><th className="px-5 py-3">Student</th><th className="px-5 py-3">Book</th><th className="px-5 py-3">Requested</th><th className="px-5 py-3">Status</th><th className="px-5 py-3">Actions</th></tr></thead><tbody>{items.map((item) => <tr key={item.id} className="border-t border-slate-100"><td className="px-5 py-4 font-semibold">{item.student_name || "Student"}</td><td className="px-5 py-4">{item.book_title || "Book"}</td><td className="px-5 py-4">{new Date(item.requested_at).toLocaleDateString()}</td><td className="px-5 py-4 capitalize">{item.status}</td><td className="px-5 py-4">{item.status === "requested" ? <div className="flex gap-2"><Button className="px-3 py-2 text-xs" onClick={() => decide(item.id, "approve")}>Approve & issue</Button><Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => decide(item.id, "reject")}>Reject</Button></div> : ["borrowed", "overdue"].includes(item.status) ? <Button className="px-3 py-2 text-xs" onClick={() => returnBook(item.id)}>Receive return</Button> : "—"}</td></tr>)}</tbody></table></div> : <div className="p-6"><EmptyState title="No matching requests" description="Borrowing activity will appear here." /></div>}</div></section>;
+}
+
+export default BorrowRequests;
