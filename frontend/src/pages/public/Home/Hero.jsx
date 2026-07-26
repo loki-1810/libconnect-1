@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
 import Button from "../../../components/ui/Button";
+import { ROUTES } from "../../../constants/routes";
+
 function Hero() {
   return (
     <section className="bg-slate-50">
@@ -13,11 +16,12 @@ function Hero() {
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-4">
-        <Button>Browse Books</Button>
-
-        <Button variant="secondary">
-            Get Started
-        </Button>
+          <Link to={ROUTES.BOOKS}>
+            <Button>Browse Books</Button>
+          </Link>
+          <Link to={ROUTES.REGISTER}>
+            <Button variant="secondary">Get Started</Button>
+          </Link>
         </div>
       </div>
     </section>

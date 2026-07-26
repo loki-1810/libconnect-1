@@ -19,7 +19,7 @@ async def seed() -> None:
         library_id = str(result.inserted_id)
     else:
         library_id = str(library["_id"])
-    accounts = [("System Administrator", "admin@libconnect.local", "admin", None), ("Maya Librarian", "librarian@libconnect.local", "librarian", library_id), ("Aarav Student", "student@libconnect.local", "student", library_id)]
+    accounts = [("System Administrator", "admin@libconnect.com", "admin", None), ("Maya Librarian", "librarian@libconnect.com", "librarian", library_id), ("Aarav Student", "student@libconnect.com", "student", library_id)]
     for name, email, role, assigned_library in accounts:
         await db.users.update_one({"email": email}, {"$setOnInsert": {"name": name, "email": email, "password_hash": hash_password("LibConnect123!"), "role": role, "library_id": assigned_library, "phone": None, "avatar_url": None, "is_active": True, "created_at": now, "updated_at": now}}, upsert=True)
     books = [("9780132350884", "Clean Code", "Robert C. Martin", "Programming", "Prentice Hall", 2008), ("9780062315007", "The Alchemist", "Paulo Coelho", "Fiction", "HarperOne", 2014), ("9780262035613", "Introduction to Algorithms", "Thomas H. Cormen", "Computer Science", "MIT Press", 2009), ("9780140449136", "Meditations", "Marcus Aurelius", "Philosophy", "Penguin Classics", 2006)]

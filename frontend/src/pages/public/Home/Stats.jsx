@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react";
+import api from "../../../services/api";
+
 function Stats() {
-  const stats = [
-    { number: "10K+", label: "Books" },
-    { number: "2K+", label: "Readers" },
-    { number: "50+", label: "Libraries" },
-    { number: "99%", label: "Satisfaction" },
-  ];
+  const [stats, setStats] = useState([
+    { number: "...", label: "Books" },
+    { number: "...", label: "Readers" },
+    { number: "...", label: "Libraries" },
+    { number: "...", label: "Borrows" },
+  ]);
+
+  useEffect(() => {
+    api
+      .get("/stats")
+      .then((response) => {
+        const d = response.data;
+        setStats([
+          { number: d.total_books.toLocaleString(), label: "Books" },
+          { number: d.total_readers.toLocaleString(), label: "Readers" },
+          { number: d.total_libraries.toLocaleString(), label: "Libraries" },
+          { number: d.total_borrows.toLocaleString(), label: "Borrows" },
+        ]);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="bg-white py-16">

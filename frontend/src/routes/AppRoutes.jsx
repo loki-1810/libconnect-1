@@ -24,9 +24,11 @@ import StudentReservations from "../pages/dashboard/StudentReservations";
 import ManageBooks from "../pages/dashboard/ManageBooks";
 import BorrowRequests from "../pages/dashboard/BorrowRequests";
 import ManageReservations from "../pages/dashboard/ManageReservations";
+import LibrarianBorrows from "../pages/dashboard/LibrarianBorrows";
 import AdminLibraries from "../pages/dashboard/AdminLibraries";
 import AdminUsers from "../pages/dashboard/AdminUsers";
 import Profile from "../pages/dashboard/Profile";
+import Notifications from "../pages/dashboard/Notifications";
 import NotFound from "../pages/common/NotFound";
 
 import { ROUTES } from "../constants/routes";
@@ -63,17 +65,21 @@ function AppRoutes() {
             <Route path={ROUTES.STUDENT} element={<DashboardHome />} />
             <Route path={ROUTES.STUDENT_BORROWS} element={<StudentBorrows />} />
             <Route path={ROUTES.STUDENT_RESERVATIONS} element={<StudentReservations />} />
+            <Route path={ROUTES.STUDENT_NOTIFICATIONS} element={<Notifications />} />
           </Route>
           <Route element={<ProtectedRoute roles={["librarian"]} />}>
             <Route path={ROUTES.LIBRARIAN} element={<DashboardHome />} />
             <Route path={ROUTES.LIBRARIAN_BOOKS} element={<ManageBooks />} />
             <Route path={ROUTES.LIBRARIAN_REQUESTS} element={<BorrowRequests />} />
+            <Route path={ROUTES.LIBRARIAN_BORROWED} element={<LibrarianBorrows />} />
             <Route path={ROUTES.LIBRARIAN_RESERVATIONS} element={<ManageReservations />} />
+            <Route path={ROUTES.LIBRARIAN_NOTIFICATIONS} element={<Notifications />} />
           </Route>
           <Route element={<ProtectedRoute roles={["admin"]} />}>
             <Route path={ROUTES.ADMIN} element={<DashboardHome />} />
             <Route path={ROUTES.ADMIN_LIBRARIES} element={<AdminLibraries />} />
             <Route path={ROUTES.ADMIN_USERS} element={<AdminUsers />} />
+            <Route path={ROUTES.ADMIN_NOTIFICATIONS} element={<Notifications />} />
           </Route>
           <Route path={ROUTES.PROFILE} element={<Profile />} />
         </Route>

@@ -57,9 +57,9 @@ The seed includes an administrator, a librarian, a student, one approved library
 
 | Role | Email |
 | --- | --- |
-| Admin | `admin@libconnect.local` |
-| Librarian | `librarian@libconnect.local` |
-| Student | `student@libconnect.local` |
+| Admin | `admin@libconnect.com` |
+| Librarian | `librarian@libconnect.com` |
+| Student | `student@libconnect.com` |
 
 ## Deployment
 

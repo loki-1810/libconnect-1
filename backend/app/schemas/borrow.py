@@ -5,7 +5,7 @@ from pydantic import Field
 
 from app.schemas.common import APIModel
 
-BorrowStatus = Literal["requested", "rejected", "borrowed", "returned", "overdue"]
+BorrowStatus = Literal["requested", "approved", "rejected", "cancelled", "borrowed", "returned", "overdue"]
 
 
 class BorrowCreate(APIModel):
@@ -14,6 +14,11 @@ class BorrowCreate(APIModel):
 
 class BorrowDecision(APIModel):
     note: str | None = Field(default=None, max_length=500)
+
+
+class PickupSchedule(APIModel):
+    pickup_date: str = Field(..., max_length=10)
+    pickup_time: str = Field(..., max_length=10)
 
 
 class BorrowOut(APIModel):
@@ -29,5 +34,9 @@ class BorrowOut(APIModel):
     returned_at: datetime | None = None
     fine_amount: float
     note: str | None = None
+    pickup_date: str | None = None
+    pickup_time: str | None = None
     book_title: str | None = None
     student_name: str | None = None
+    student_email: str | None = None
+    live_fine: float | None = None

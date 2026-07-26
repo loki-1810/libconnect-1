@@ -22,6 +22,8 @@ def user_out(user: dict) -> UserOut:
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(payload: UserRegister) -> TokenResponse:
     db = get_database()
+    if payload.role == "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin accounts cannot be created through registration")
     if await db.users.find_one({"email": payload.email.lower()}):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="An account with this email already exists")
     if payload.library_id and not await db.libraries.find_one({"_id": object_id(payload.library_id, "library_id")}):
